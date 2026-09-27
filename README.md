@@ -65,5 +65,23 @@ gives them.
 ## Maker-specific bottles
 
 A size is a row, `[name, capacity, h1, h2, d1, s, d2, finish]`. A maker's bottle is the same row
-with its own name and its own numbers, so it can be added beside the ISO rows and read by every
-function here. None is added yet; the open issues track which.
+with its maker's numbers, in a file per maker, and every function here reads it:
+
+```openscad
+use <iso4796-bottle-scad/iso4796.scad>
+use <iso4796-bottle-scad/duran.scad>
+use <iso4796-bottle-scad/kimax.scad>
+
+iso4796_bottle(duran_by_capacity(3500));   // DURAN 21 801 69 08: 160 across, where ISO says 161
+iso4796_report(duran_by_capacity(1000));   // also sets the drawn bottle against DWK's brim capacity
+iso4796_bottle(kimax_by_capacity(500));    // KIMAX 14396-500
+```
+
+- **[duran.scad](duran.scad):** DURAN Original, 25 mL to 20 L, named by catalogue number. Height and
+  diameter from DWK's order sheet, which differs from the standard in three places (750 mL, 3.5 L,
+  5 L); brim capacity where DWK publishes one, carried as a ninth field.
+- **[kimax.scad](kimax.scad):** KIMBLE KIMAX GL45 media bottles, 100 mL to 10 L, catalogue 14396.
+  Height and diameter as DWK lists them, all equal to the standard's.
+
+Neither maker publishes the height to the shoulder, the wall or the neck, so their rows take the
+standard's. Rows for other makers, and for generic Boro 3.3 bottles, are tracked in the issues.
