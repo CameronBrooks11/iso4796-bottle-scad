@@ -37,7 +37,9 @@ function iso4796_finish_bore(finish) = finish[4];
 
 // [name, nominal capacity mL, h1, h2, d1, s, d2, finish]: the standard's columns as it gives them,
 // then the finish. h1 total height, h2 height to the shoulder, d1 outside diameter (all approx.),
-// s wall thickness (min.), d2 internal neck diameter (min.). mm.
+// s wall thickness (min.), d2 internal neck diameter (min.). mm. A maker's row (duran.scad,
+// kimax.scad) has the same shape with its own numbers, and may add a ninth field: the brim capacity
+// the maker publishes, in mL.
 iso4796_25 = ["ISO 4796-1 - 25", 25, 70, 41, 36, 1.0, 12.5, iso4796_gl25];
 iso4796_50 = ["ISO 4796-1 - 50", 50, 87, 50, 46, 1.0, 15, iso4796_gl32];
 iso4796_100 = ["ISO 4796-1 - 100", 100, 100, 60, 56, 1.5, 27, iso4796_gl45];
@@ -73,6 +75,7 @@ function iso4796_diameter(size) = size[4]; // d1
 function iso4796_wall(size) = size[5]; // s
 function iso4796_neck_diameter_min(size) = size[6]; // d2
 function iso4796_finish(size) = size[7];
+function iso4796_brim_capacity(size) = size[8]; // mL, a maker's figure; undef on the ISO rows
 
 // 5.2.2: cylindrical to 2 L, tapered 1:30 from 3.5 L, narrower at the base.
 function iso4796_tapered(size) = iso4796_capacity(size) >= 3500;
@@ -239,18 +242,22 @@ function iso4796_volume_below(size, z, n = 32) =
 /**
  * Echo how the drawn bottle sits against what the standard asks of it: the capacity to the
  * shoulder against nominal (3.2), to the neck's base against 1.15 x nominal (3.3), and the cone
- * the fit found, against Figure 2's 90 degrees for the tapered sizes.
+ * the fit found, against Figure 2's 90 degrees for the tapered sizes. A row carrying a maker's
+ * brim capacity is also measured to the rim against it.
  */
 module iso4796_report(size) {
   _nom = iso4796_capacity(size);
   _to_shoulder = iso4796_volume_below(size, iso4796_shoulder_height(size));
   _to_neck = iso4796_volume_below(size, iso4796_neck_base_z(size));
   _cone = 180 - 2 * iso4796_cone_slope(size);
+  _brim = iso4796_brim_capacity(size);
+  _to_rim = iso4796_volume_below(size, iso4796_height(size));
   echo(str(
     iso4796_name(size), ": ",
     round(_to_shoulder), " mL to the shoulder (", round(100 * _to_shoulder / _nom), " % of nominal), ",
     round(_to_neck), " mL to the neck (", round(100 * _to_neck / _nom), " %, 3.3 asks about ",
     round(100 * iso4796_neck_capacity_ratio), "), ",
+    is_undef(_brim) ? "" : str(round(_to_rim), " mL to the rim (", round(100 * _to_rim / _brim), " % of the maker's ", _brim, "), "),
     "cone ", round(_cone), " deg included", iso4796_tapered(size) ? " (Figure 2: 90)" : ""
   ));
 }

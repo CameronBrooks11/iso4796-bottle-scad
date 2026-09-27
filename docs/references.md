@@ -93,7 +93,9 @@ e.g. <https://www.dwk.com/na/duran-original-gl-45-laboratory-bottle-clear-with-s
 
 <https://www.dwk.com/na/kimble-gl45-media-bottles>, read 2026-09-27. Catalogue 14395 (with cap) and
 14396 (without): 100, 250, 500, 1000, 2000, 5000 and 10 000 mL, whose OD and height are Table 1's
-d1 and h1 exactly, 5 L at 181 x 330. The page gives the opening as **"30 mm ID"**.
+d1 and h1 exactly, 5 L at 181 x 330. The page gives the opening as **"30 mm ID"**. Each size's
+own product page (e.g. `14395-500`) gives OD, height and graduations but no brim capacity, and the
+same height with cap as without.
 
 ## Neck bores
 
@@ -136,3 +138,12 @@ bare cylinder of d1 at the minimum wall, filled to h2, already holds 113-49 % of
 to 2 L, where it holds 101-2 % from 3.5 L up. Duran's brim capacities say the same from the other
 side - its 100 mL bottle holds 138 mL to the brim, the drawn one 156 mL to the neck alone. Small
 moulded bottles carry far more glass than s, most likely in the base; a measured bottle settles it.
+
+The DURAN rows carry DWK's brim capacities, so the report measures them to the rim as well:
+
+| mL    | 25  | 50  | 100 | 150 | 250 | 500 | 1 000 | 2 000 | 3 500 | 5 000 | 10 000 |
+| ----- | --- | --- | --- | --- | --- | --- | ----- | ----- | ----- | ----- | ------ |
+| rim % | 135 | 135 | 126 | 124 | 124 | 118 | 116   | 121   | 103   | 101   | 104    |
+
+From 3.5 L up the drawn bottle is within 4 % of DWK's own figure; below that it is 16-35 % over,
+the same excess as against the standard.

@@ -14,3 +14,7 @@ All notable changes to this project are recorded here. The format follows
 - `iso4796_volume_below` and `iso4796_report`: what a bottle holds, and how that sits against the
   standard's capacities.
 - `examples/all_sizes.scad` and `examples/500ml_section.scad`.
+- `duran.scad`: DURAN Original bottles, 25 mL to 20 L, by catalogue number, with DWK's brim
+  capacities; `duran_by_capacity`.
+- `kimax.scad`: KIMBLE KIMAX GL45 media bottles, 100 mL to 10 L; `kimax_by_capacity`.
+- `iso4796_brim_capacity`, and a brim comparison in `iso4796_report` for a row that carries one.
