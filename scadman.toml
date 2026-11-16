@@ -1,0 +1,6 @@
+[project]
+name = "iso4796-bottle-scad"
+
+[dependencies.din168-thread-scad]
+git = "https://github.com/CameronBrooks11/din168-thread-scad"
+tag = "v0.1.0"
