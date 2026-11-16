@@ -1,0 +1,7 @@
+version = 1
+
+[[package]]
+name = "din168-thread-scad"
+source = "https://github.com/CameronBrooks11/din168-thread-scad"
+rev = "8d8bb8f81b48aeca447e8caa71adb7aa1ce69892"
+hash = "85b2c49bb0425df3aaf3fefdcc8a31da54a53800a1cbfd92a7df1a7ff5ff36c2"
