@@ -4,6 +4,8 @@ ISO 4796-1 screw-neck laboratory bottles (the DURAN / KIMAX-style media bottle) 
 standard's size table, a section built from it, what each bottle holds, and a drawing with the
 DIN 168 thread optional.
 
+![A 500 mL bottle cut away to show its section, with its GL45 thread drawn](docs/img/500ml-section.png)
+
 ```openscad
 use <iso4796-bottle-scad/iso4796.scad>
 
@@ -25,7 +27,9 @@ iso4796_report(b);                  // echo the capacity against what the standa
   the thread's outside diameter, which is its envelope. `thread=true` draws the DIN 168 profile from
   [din168-thread-scad](https://github.com/CameronBrooks11/din168-thread-scad), which must then be on
   `OPENSCADPATH`. Without it OpenSCAD prints one `Can't open library` warning, and a `thread=true`
-  call stops with an assertion naming the library.
+  call stops with an assertion naming the library. With [scadman](https://github.com/CameronBrooks11/scadman),
+  `scadman.toml` pins din168-thread-scad at v0.1.0: `scadman sync`, then `scadman env` prints the
+  `OPENSCADPATH` to use.
 - **What is chosen, not sourced:** the base and shoulder radii, the base thickness, and the neck's
   lengths. Each is a named variable marked CHOICE in `iso4796.scad`. The cone is not chosen: it is
   whatever fits between the shoulder and the neck.
@@ -60,7 +64,8 @@ gives them.
 
 - [examples/all_sizes.scad](examples/all_sizes.scad): every size in a row, labelled, with each
   capacity report echoed.
-- [examples/500ml_section.scad](examples/500ml_section.scad): a 500 mL bottle cut away, thread drawn.
+- [examples/500ml_section.scad](examples/500ml_section.scad): a 500 mL bottle cut away. Its
+  `thread` switch, off by default, draws the GL45 thread.
 
 ## Maker-specific bottles
 
@@ -85,3 +90,18 @@ iso4796_bottle(kimax_by_capacity(500));    // KIMAX 14396-500
 
 Neither maker publishes the height to the shoulder, the wall or the neck, so their rows take the
 standard's. Rows for other makers, and for generic Boro 3.3 bottles, are tracked in the issues.
+
+## Checks
+
+`just test` syncs din168-thread-scad with scadman and takes about 3 s on OpenSCAD 2026.10.15, with
+warnings treated as errors:
+
+- The ISO rows match Table 1, the DURAN rows DWK's sheet and brim capacities, and the KIMAX rows
+  Table 1's d1 and h1, all as [docs/references.md](docs/references.md) records them.
+- What each drawn bottle holds, to the shoulder, to the neck and, for DURAN, to the rim, rounds to
+  the percentages its [Findings](docs/references.md#findings) record.
+- Every size renders as one solid, d1 across and h1 tall; so do the 25, 50 and 500 mL bottles with
+  their GL25, GL32 and GL45 threads drawn, and both examples.
+- The three lookups refuse a capacity they don't have, each with its message.
+
+`just images` renders the picture above.
