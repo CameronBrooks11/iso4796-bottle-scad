@@ -15,11 +15,18 @@ use <iso4796.scad>
 // A row: the glass's catalogue number (without cap and pouring ring), nominal mL, h and d in mm,
 // then brim in mL, undef where DWK gives none.
 function _duran(cat, ml, h, d, brim) =
-  let (iso = iso4796_by_capacity(ml))
-  [
-    str("DURAN ", cat), ml, h, iso4796_shoulder_height(iso), d, iso4796_wall(iso),
-    iso4796_neck_diameter_min(iso), iso4796_finish(iso), brim,
-  ];
+    let (iso = iso4796_by_capacity(ml))
+    [
+            str("DURAN ", cat),
+            ml,
+            h,
+            iso4796_shoulder_height(iso),
+            d,
+            iso4796_wall(iso),
+            iso4796_neck_diameter_min(iso),
+            iso4796_finish(iso),
+            brim,
+    ];
 
 duran_25 = _duran("21 801 14 04", 25, 70, 36, 34);
 duran_50 = _duran("21 801 17 04", 50, 87, 46, 70);
@@ -37,12 +44,24 @@ duran_15000 = _duran("21 801 88 06", 15000, 445, 268, undef);
 duran_20000 = _duran("21 801 91 08", 20000, 505, 288, undef);
 
 duran_bottles = [
-  duran_25, duran_50, duran_100, duran_150, duran_250, duran_500, duran_750, duran_1000, duran_2000,
-  duran_3500, duran_5000, duran_10000, duran_15000, duran_20000,
+    duran_25,
+    duran_50,
+    duran_100,
+    duran_150,
+    duran_250,
+    duran_500,
+    duran_750,
+    duran_1000,
+    duran_2000,
+    duran_3500,
+    duran_5000,
+    duran_10000,
+    duran_15000,
+    duran_20000,
 ];
 
 // A DURAN bottle by nominal capacity in mL, e.g. 500.
 function duran_by_capacity(ml) =
-  let (found = [for (s = duran_bottles) if (s[1] == ml) s])
-  assert(len(found) > 0, str("duran_by_capacity: no DURAN Original bottle of ", ml, " mL"))
-  found[0];
+    let (found = [for (s = duran_bottles) if (s[1] == ml) s])
+    assert(len(found) > 0, str("duran_by_capacity: no DURAN Original bottle of ", ml, " mL"))
+    found[0];

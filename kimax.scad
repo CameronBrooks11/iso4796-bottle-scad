@@ -15,11 +15,17 @@ use <iso4796.scad>
 // A row: nominal mL, then h and d in mm, named by the catalogue number without cap (14396-); the
 // capped bottle, 14395-, is the same glass at the same height.
 function _kimax(ml, h, d) =
-  let (iso = iso4796_by_capacity(ml))
-  [
-    str("KIMAX 14396-", ml), ml, h, iso4796_shoulder_height(iso), d, iso4796_wall(iso),
-    iso4796_neck_diameter_min(iso), iso4796_finish(iso),
-  ];
+    let (iso = iso4796_by_capacity(ml))
+    [
+            str("KIMAX 14396-", ml),
+            ml,
+            h,
+            iso4796_shoulder_height(iso),
+            d,
+            iso4796_wall(iso),
+            iso4796_neck_diameter_min(iso),
+            iso4796_finish(iso),
+    ];
 
 kimax_100 = _kimax(100, 100, 56);
 kimax_250 = _kimax(250, 138, 70);
@@ -33,6 +39,6 @@ kimax_bottles = [kimax_100, kimax_250, kimax_500, kimax_1000, kimax_2000, kimax_
 
 // A KIMAX bottle by nominal capacity in mL, e.g. 500.
 function kimax_by_capacity(ml) =
-  let (found = [for (s = kimax_bottles) if (s[1] == ml) s])
-  assert(len(found) > 0, str("kimax_by_capacity: no KIMAX GL45 media bottle of ", ml, " mL"))
-  found[0];
+    let (found = [for (s = kimax_bottles) if (s[1] == ml) s])
+    assert(len(found) > 0, str("kimax_by_capacity: no KIMAX GL45 media bottle of ", ml, " mL"))
+    found[0];
